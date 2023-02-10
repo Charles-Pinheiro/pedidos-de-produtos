@@ -44,16 +44,28 @@ public class Order {
 		return items;
 	}
 
-	public void setItems(List<OrderItem> items) {
-		this.items = items;
-	}
-
 	public Client getClient() {
 		return client;
 	}
 
 	public void setClient(Client client) {
 		this.client = client;
+	}
+
+	public void addItem(OrderItem item) {
+		items.add(item);
+	}
+
+	public void removeItem(OrderItem item) {
+		items.remove(item);
+	}
+
+	public Double total() {
+		Double total = 0.0;
+		for (OrderItem item : items) {
+			total += item.subTotal();
+		}
+		return total;
 	}
 
 	@Override
@@ -70,7 +82,7 @@ public class Order {
 			sb.append(item.toString() + " \n");
 		}
 		sb.append("Total price: $");
-		
+		sb.append(String.format("%.2f", total()));
 		return sb.toString();
 	}
 
