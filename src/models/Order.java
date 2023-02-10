@@ -1,5 +1,6 @@
 package models;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,6 +8,8 @@ import java.util.List;
 import models.enums.OrderStatus;
 
 public class Order {
+
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 	private Date moment;
 	private OrderStatus status;
@@ -51,6 +54,24 @@ public class Order {
 
 	public void setClient(Client client) {
 		this.client = client;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Order moment: ");
+		sb.append(sdf.format(moment) + " \n");
+		sb.append("Order status: ");
+		sb.append(status + " \n");
+		sb.append("Client: ");
+		sb.append(client.toString() + " \n");
+		sb.append("Order items: \n");
+		for (OrderItem item : items) {
+			sb.append(item.toString() + " \n");
+		}
+		sb.append("Total price: $");
+		
+		return sb.toString();
 	}
 
 }
